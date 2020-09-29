@@ -108,7 +108,7 @@ final class AnalyzingJavaCompiler private[sbt] (
       }
 
       // Construct class loader to analyze dependencies of generated class files
-      val loader = ClasspathUtilities.toLoader(searchClasspath)
+      // val loader = ClasspathUtilities.toLoader(searchClasspath)
 
       // Record progress for java compilation
       val javaCompilationPhase = "Java compilation"
@@ -155,12 +155,12 @@ final class AnalyzingJavaCompiler private[sbt] (
         progress.advance(1, 2)
       }
 
-      timed(javaAnalysisPhase, log) {
-        for ((classesFinder, oldClasses, srcs) <- memo) {
-          val newClasses = Set(classesFinder.get: _*) -- oldClasses
-          Analyze(newClasses.toSeq, srcs, log)(callback, loader, readAPI)
-        }
-      }
+      // timed(javaAnalysisPhase, log) {
+      //   for ((classesFinder, oldClasses, srcs) <- memo) {
+      //     val newClasses = Set(classesFinder.get: _*) -- oldClasses
+      //     Analyze(newClasses.toSeq, srcs, log)(callback, loader, readAPI)
+      //   }
+      // }
 
       // Report that we reached the end
       progressOpt.foreach { progress =>

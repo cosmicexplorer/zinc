@@ -19,7 +19,7 @@ def mimaSettings: Seq[Setting[_]] = Seq(
 )
 
 def buildLevelSettings: Seq[Setting[_]] = Seq(
-  git.baseVersion := "1.1.4",
+  git.baseVersion := "1.1.7-asdf",
   // https://github.com/sbt/sbt-git/issues/109
   // Workaround from https://github.com/sbt/sbt-git/issues/92#issuecomment-161853239
   git.gitUncommittedChanges := {
