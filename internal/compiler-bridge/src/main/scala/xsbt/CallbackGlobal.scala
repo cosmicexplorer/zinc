@@ -24,8 +24,9 @@ import scala.reflect.io.PlainFile
 sealed abstract class CallbackGlobal(
     settings: Settings,
     reporter: reporters.Reporter,
-    output: Output
-) extends Global(settings, reporter)
+    output: Output,
+    cache: Option[rsc.output.InMemoryOutputCache] = None
+) extends Global(settings, reporter, cache)
     with ZincPicklePath {
   import Compat._
 
@@ -86,7 +87,8 @@ sealed abstract class CallbackGlobal(
 }
 
 /** Defines the implementation of Zinc with all its corresponding phases. */
-sealed class ZincCompiler(settings: Settings, dreporter: DelegatingReporter, output: Output)
+sealed class ZincCompiler(settings: Settings, dreporter: DelegatingReporter, output: Output,
+  cache: Option[rsc.output.InMemoryOutputCache] = None)
     extends CallbackGlobal(settings, dreporter, output)
     with ZincGlobalCompat {
 

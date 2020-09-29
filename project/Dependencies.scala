@@ -75,6 +75,7 @@ object Dependencies {
   val sjsonnewScalaJson = Def.setting {
     "com.eed3si9n" %% "sjson-new-scalajson" % contrabandSjsonNewVersion.value
   }
+  val rsc = "com.twitter" %% "rsc" % "0.0.0-794-2aa0b91e-20190731-0053"
 
   def log4jVersion = "2.11.2"
   val log4jApi = "org.apache.logging.log4j" % "log4j-api" % log4jVersion

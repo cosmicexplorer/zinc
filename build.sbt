@@ -404,7 +404,7 @@ lazy val compilerInterface212 = (project in internalPath / "compiler-interface")
     scalaVersion := scala212,
     crossScalaVersions := Seq(scala212),
     compilerVersionDependentScalacOptions,
-    libraryDependencies ++= Seq(scalaLibrary.value % Test),
+    libraryDependencies ++= Seq(scalaLibrary.value % Test, rsc),
     exportJars := true,
     resourceGenerators in Compile += Def
       .task(

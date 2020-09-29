@@ -22,8 +22,10 @@ final class CompilerInterface {
   def newCompiler(options: Array[String],
                   output: Output,
                   initialLog: Logger,
-                  initialDelegate: Reporter): CachedCompiler =
-    new CachedCompiler0(options, output, new WeakLog(initialLog, initialDelegate))
+    initialDelegate: Reporter,
+    cache: Option[rsc.output.InMemoryOutputCache] = None
+  ): CachedCompiler =
+    new CachedCompiler0(options, output, new WeakLog(initialLog, initialDelegate), cache)
 
   def run(sources: Array[File],
           changes: DependencyChanges,
@@ -56,7 +58,8 @@ private final class WeakLog(private[this] var log: Logger, private[this] var del
   }
 }
 
-private final class CachedCompiler0(args: Array[String], output: Output, initialLog: WeakLog)
+private final class CachedCompiler0(args: Array[String], output: Output, initialLog: WeakLog,
+  scalasigOutputCache: Option[rsc.output.InMemoryOutputCache] = None)
     extends CachedCompiler
     with CachedCompilerCompat
     with java.io.Closeable {
@@ -86,7 +89,7 @@ private final class CachedCompiler0(args: Array[String], output: Output, initial
   } finally initialLog.clear()
 
   /** Instance of the underlying Zinc compiler. */
-  val compiler: ZincCompiler = newCompiler(command.settings, dreporter, output)
+  val compiler: ZincCompiler = newCompiler(command.settings, dreporter, output, scalasigOutputCache)
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
